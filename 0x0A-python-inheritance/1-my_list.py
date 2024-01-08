@@ -3,7 +3,7 @@
 
 
 class MyList(list):
-    """MyList class extends lists to include print_sorted method"""
+    """MyList class."""
     def print_sorted(self):
         """Prints list elements in sorted order"""
         print(sorted(self))
