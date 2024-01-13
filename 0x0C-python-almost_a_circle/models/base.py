@@ -1,24 +1,22 @@
 #!/usr/bin/python3
+"""Module to represent Base object to be extended by Square and Rectangle"""
 
-"""Module that defines a base object to be extended by rectangle and square."""
-
-class Base
-"""This is the base model that represents the base for all other classes in this project.
-
-    Private Class Attributes:
-        __nb_object (int): Number of instantiated Bases.
-"""
+class Base:
+    """Base class to be subclassed by Square and Rectangle"""
 
     __nb_object = 0
+    """Class variable representing the total count of Base (and subclass)
+    instances.
+    """
 
     def __init__(self, id=None):
-        """Initialize a new Base.
+        """Initialize new Base instance
 
         Args:
-            id (int): The identity of the new Base.
+            id: Identifier for instance. If None, use current object count.
         """
         if id is not None:
             self.id = id
         else:
-            Base.__nb_objects += 1
-            self.id = Base.__nb_objects
+            Base.__nb_object += 1
+            self.id = Base.__nb_object
