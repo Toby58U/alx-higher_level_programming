@@ -1,25 +1,23 @@
 #!/usr/bin/python3
 """Sends a request to the URL and displays the body of the response."""
 
-
 if __name__ == '__main__':
     from requests import post
     from sys import argv
 
     base_url = 'http://0.0.0.0:5000/search_user'
-    if len(sys.argv) > 1:
-        q = sys.argv[1]
-    else:
-        q = ""
+    data = {'q': argv[1] if len(argv) >= 2 else ""}
+    res = post(base_url, data)
 
-    data = {'q': q}
-    response = requests.post(base_url, data=data)
+    type_res = res.headers['content-type']
 
-    try:
-        json_response = response.json()
-        if json_response:
-            print("[{}] {}".format(json_response['id'], json_response['name']))
+    if type_res == 'application/json':
+        result = res.json()
+        _id = result.get('id')
+        name = result.get('name')
+        if (result != {} and _id and name):
+            print("[{}] {}".format(_id, name))
         else:
-            print("No result")
-    except ValueError:
-        print("Not a valid JSON")
+            print('No result')
+    else:
+        print('Not a valid JSON')
